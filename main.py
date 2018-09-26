@@ -92,7 +92,7 @@ class NonBot(commands.Bot):
         import traceback; traceback.print_exception(type(error), error, error.__traceback__)
         if isinstance(error, commands.MissingPermissions):
             try:
-                e = discord.Embed(title="Error <:no:473312284148498442>", description=f"{str(error)}".capitalize(), color=16720640)
+                e = discord.Embed(title="Error <:no:473312284148498442>", description=f"{str(error)}", color=16720640)
                 return await ctx.send(embed=e, delete_after=10)
             except discord.HTTPException:
                 pass
