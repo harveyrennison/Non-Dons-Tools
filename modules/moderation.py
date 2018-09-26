@@ -119,10 +119,11 @@ class Moderation:
         """This is a subcommand for all commands following nick
 
         You must have Manage Nicknames permissions to use this command"""
+
         pass
 
     @nickname.command()
-    @commands.has_permissions(manage_nicknames=True)
+    @commands.has_permissions(manage_channels=True)
     async def set(self, ctx, member: discord.Member, *, nick):
         """Change the nickname of a member
 
@@ -146,7 +147,7 @@ class Moderation:
         await ctx.send(embed=e)
 
     @commands.group(invoke_without_command=True)
-    @commands.has_permissions(manage_guild=True)
+    @commands.has_permissions(manage_channels=True)
     async def slowmode(self, ctx, seconds="15"):
         """Activate slowmode in a channel for 'x' number of seconds
 
@@ -159,8 +160,8 @@ class Moderation:
         e.add_field(name="Slowmode <:yes:473312268998803466>", value=f"Slowmode has now been activated for **{seconds}** seconds in channel <#{ctx.channel.id}>")
         await ctx.send(embed=e)
 
-    @slowmode.group()
-    @commands.has_permissions(manage_guild=True)
+    @slowmode.group(aliases=['off', 'o', 'none', '0'])
+    @commands.has_permissions(manage_channels=True)
     async def reset(self, ctx):
         """Reset slowmode in a channel
 
@@ -168,7 +169,7 @@ class Moderation:
 
         await ctx.channel.edit(slowmode_delay=None)
         e = discord.Embed(color=discord.Color.blue())
-        e.add_field(name="Slowmode Reset <:yes:473312268998803466>", value=f"Slowmode has now been reset in channel <#{ctx.channel.id}>")
+        e.add_field(name="Slowmode Reset <:yes:473312268998803466>", value=f"Slowmode has been turned off in channel <#{ctx.channel.id}>")
         await ctx.send(embed=e)
 
     @commands.command()
