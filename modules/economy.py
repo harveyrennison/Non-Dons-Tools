@@ -364,7 +364,7 @@ class Economy:
             await ctx.send(f"You are on cooldown! Please try again in **{hours} hours, {minutes} minutes, {seconds} seconds**")
 
     @commands.command(aliases=['hour'])
-    @commands.cooldown(1, 86400, BucketType.user)
+    @commands.cooldown(1, 3600, BucketType.user)
     async def hourly(self, ctx):
         """Collect your daily amount of money
 
@@ -541,7 +541,7 @@ class Economy:
             await ctx.send(embed=e)
             return
         else:
-            await self.bot.db.execute("UPDATE economy SET balance=balance=$1 WHERE userid=$2;", amount, ctx.author.id)
+            await self.bot.db.execute("UPDATE economy SET balance=balance-$1 WHERE userid=$2;", amount, ctx.author.id)
             e = discord.Embed(color=flowercolour)
             e.add_field(name=f"A {flowers} flower has been drawn!", value=f"You have guessed **incorrectly**, and lost **${amount}**")
             e.set_thumbnail(url=flowerurl)
